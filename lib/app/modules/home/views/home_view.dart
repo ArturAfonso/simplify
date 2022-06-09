@@ -9,12 +9,15 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomeView'),
+        title: Text(
+          'HomeView',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Center(
         child: Text(
-          'HomeView is working',
+          'HomeView',
           style: TextStyle(fontSize: 20),
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:simplify/app/data/global/constants.dart';
+import 'package:simplify/app/routes/app_pages.dart';
 import 'package:simplify/app/theme/theme.dart';
 
 import '../controllers/login_controller.dart';
@@ -140,7 +141,10 @@ class LoginView extends GetView<LoginController> {
               return RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30));
             })),
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () {
+          print('Login Button Pressed');
+          Get.toNamed(Routes.HOME);
+        },
         child: Text(
           'LOGIN',
           style: TextStyle(
@@ -285,17 +289,12 @@ class LoginView extends GetView<LoginController> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: azulTiffany,
-                  /*  gradient: LinearGradient(
+                  gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ), */
+                    colors: [azulTiffany, azulArdosia],
+                    //stops: [0.1, 0.4, 0.7, 0.9],
+                  ),
                 ),
               ),
               Container(
@@ -310,7 +309,7 @@ class LoginView extends GetView<LoginController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Sign In',
+                        'Simplify',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'OpenSans',

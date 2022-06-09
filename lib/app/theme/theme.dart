@@ -47,4 +47,9 @@ final ThemeData appTheme = ThemeData(
   brightness: Brightness.light,
   primarySwatch: azulTiffany,
   primaryColor: Color(0xFF0ABBB5),
+  textTheme: TextTheme(
+    headline1: TextStyle(
+      color: Colors.white,
+    ),
+  ),
 );
