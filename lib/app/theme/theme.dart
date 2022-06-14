@@ -44,6 +44,8 @@ Map<int, Color> colorSec = {
 MaterialColor azulArdosia = MaterialColor(0xFF473C8A, colorSec);
 
 final ThemeData appTheme = ThemeData(
+  unselectedWidgetColor: Colors.red,
+  drawerTheme: DrawerThemeData(),
   brightness: Brightness.light,
   primarySwatch: azulTiffany,
   primaryColor: Color(0xFF0ABBB5),
