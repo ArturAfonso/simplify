@@ -11,8 +11,8 @@ THE PROJECT IS STILL UNDER DEVELOPMENT.
 (PT) O PROJETO AINDA ESTÁ EM DESENVOLVIMENTO.
 
 
-![Alt text](assets/screenshots/fullwhite.webm?raw=true)
-![Alt text](assets/screenshots/Screenshot_1657580136.png?raw=true)
+![Alt Text](assets/screenshots/fullwhite.gif)
+
 ![Alt text](assets/screenshots/ScreenShot012.png?raw=true)
 ![Alt text](assets/screenshots/preview-2.jpg?raw=true)
 ![Alt text](assets/screenshots/Captura_da_Web_13-6-2022_125743_.jpeg.jpg?raw=true)
