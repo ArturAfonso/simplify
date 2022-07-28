@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
 
-  RxBool rememberMe = false.obs;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  var formkey = GlobalKey<FormState>();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,5 +20,4 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

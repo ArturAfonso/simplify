@@ -2,341 +2,183 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:simplify/app/data/components/customTextField.dart';
 import 'package:simplify/app/data/global/constants.dart';
 import 'package:simplify/app/routes/app_pages.dart';
 import 'package:simplify/app/theme/theme.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   //widgets
-  Widget _buildEmailTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Email',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.white,
-              ),
-              hintText: 'Insira seu Email',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Senha',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            obscureText: true,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              hintText: 'Insira sua senha',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        //padding: EdgeInsets.only(right: 0.0),
-        child: Text(
-          'Esqueceu a senha?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRememberMeCheckbox() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: Obx(() => Checkbox(
-                  value: controller.rememberMe.value,
-                  checkColor: Colors.green,
-                  activeColor: Colors.white,
-                  onChanged: (value) {
-                    controller.rememberMe.value = value!;
-                  },
-                )),
-          ),
-          Text(
-            'Lembrar-me',
-            style: kLabelStyle,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLoginBtn() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ButtonStyle(
-            elevation: MaterialStateProperty.resolveWith<double>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed)) return 5.0;
-                return 0.0;
-              },
-            ),
-            //primary: Color.fromARGB(255, 129, 212, 250),
-            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                (Set<MaterialState> states) {
-              return Colors.white;
-            }),
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-            shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
-              return RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30));
-            })),
-        onPressed: () {
-          print('Login Button Pressed');
-          Get.toNamed(Routes.HOME);
-        },
-        child: Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
-
-      /* RaisedButton(
-        elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
-        child: Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ), */
-    );
-  }
-
-  Widget _buildSignInWithText() {
-    return Column(
-      children: <Widget>[
-        Text(
-          '- OU -',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(height: 20.0),
-        Text(
-          'Login com',
-          style: kLabelStyle,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-    return GestureDetector(
-      onTap: onTap(),
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
-            ),
-          ],
-          image: DecorationImage(
-            image: logo,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSocialBtnRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _buildSocialBtn(
-            () => print('Login with Facebook'),
-            AssetImage(
-              'assets/logos/facebook.jpg',
-            ),
-          ),
-          _buildSocialBtn(
-            () => print('Login with Google'),
-            AssetImage(
-              'assets/logos/google.jpg',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSignupBtn() {
-    return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Não tem conta? ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            TextSpan(
-              text: 'Cadastrar',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //widgets
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: azulTiffany,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [azulTiffany, azulArdosia],
-                    //stops: [0.1, 0.4, 0.7, 0.9],
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: Get.size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                //logotipo
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: Center(
+                    child: Image.asset(
+                      "assets/logos/LogoTrello.png",
+                      width: Get.size.width / 3,
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
+                )),
+                // Login formulario
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(46))),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Simplify',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //Text emaill
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          "E-mail",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 10, 8, 38),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
+                      //email customfield
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: CustomTextField(
+                          validator: Validatorless.multiple([
+                            Validatorless.required("E-mail Obrigatório"),
+                            Validatorless.email("E-mail Inválido"),
+                          ]),
+                          customTextController: controller.emailController,
+                          label: Text("usuario@gmail.com"),
+                        ),
                       ),
-                      _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignInWithText(),
-                      _buildSocialBtnRow(),
-                      _buildSignupBtn(),
+                      //text senha
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          "Senha",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 10, 8, 38),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      //Senha customfield
+                      CustomTextField(
+                        validator: Validatorless.required("Senha obrigatória"),
+                        customTextController: controller.passwordController,
+                        //icon: Icon(Icons.lock),
+                        label: Text("Senha"),
+                        isObscure: true,
+                      ),
+
+                      //ESQUECEU A SENHA
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Esqueceu a senha?",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+
+                      //     BOTAO  ENTRAR
+                      customButtom(),
+
+                      //         DIVIDER
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20, top: 20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                color: Colors.grey.withAlpha(90),
+                                thickness: 2,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text("Ou"),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                color: Colors.grey.withAlpha(90),
+                                thickness: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //    BOTAO CRIAR CONTA
+
+                      SizedBox(
+                        height: 50,
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.grey.shade200,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/logos/google.jpg"),
+                                Text(
+                                  "Continuar com o google".toUpperCase(),
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ),
+                              ],
+                            )),
+                      )
                     ],
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
+  }
+}
+
+class customButtom extends StatelessWidget {
+  const customButtom({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: 50,
+        width: 120,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            "continuar".toUpperCase(),
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5))),
+        ));
   }
 }

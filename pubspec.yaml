@@ -11,10 +11,15 @@ dependencies:
   
 
   get: 4.6.5
-  splashscreen: ^1.3.5
-  material_design_icons_flutter: ^5.0.6595
+  get_storage: ^2.0.3
 
+  intl:
   
+  material_design_icons_flutter: ^5.0.6595
+  mask_text_input_formatter: ^2.3.0
+
+  splashscreen: ^1.3.5
+  validatorless: ^1.2.1
   flutter: 
     sdk: flutter
 
@@ -42,4 +47,5 @@ flutter:
    - assets/screenshots/Screenshot_1657580136.png
    - assets/screenshots/ScreenShot012.png
    - assets/screenshots/fullwhite.gif
+   - assets/logos/LogoTrello.png
 
